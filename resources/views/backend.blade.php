@@ -12,7 +12,6 @@
     </script>
 </head>
 <body>
-<h1>Backend admin panel here</h1>
 <div id="app"></div>
 <script src="{{ mix('/js/backend.js') }}"></script>
 </body>
