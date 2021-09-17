@@ -10,6 +10,15 @@ const service = axios.create({
   timeout: 5000 // request timeout
 })
 
+/**
+ * Sets the X-CSRFToken header for ajax non-GET request to make CSRF protection easy.
+ */
+if (Laravel.csrfToken) {
+  service.defaults.headers.common['X-CSRF-TOKEN'] = Laravel.csrfToken;
+} else {
+  console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
+}
+
 // request interceptor
 service.interceptors.request.use(
   config => {
@@ -19,7 +28,9 @@ service.interceptors.request.use(
       // let each request carry token
       // ['X-Token'] is a custom headers key
       // please modify it according to the actual situation
-      config.headers['X-Token'] = getToken()
+      // config.headers['X-Token'] =
+
+      config.headers.Authorization = `Bearer ${getToken()}`;
     }
     return config
   },
@@ -46,7 +57,7 @@ service.interceptors.response.use(
     const res = response.data
 
     // if the custom code is not 20000, it is judged as an error.
-    if (res.code !== 20000) {
+    if (response.status !== 200) {
       Message({
         message: res.message || 'Error',
         type: 'error',

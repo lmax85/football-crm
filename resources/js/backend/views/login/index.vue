@@ -6,15 +6,15 @@
         <h3 class="title">Login Form?</h3>
       </div>
 
-      <el-form-item prop="username">
+      <el-form-item prop="email">
         <span class="svg-container">
           <svg-icon icon-class="user" />
         </span>
         <el-input
-          ref="username"
-          v-model="loginForm.username"
-          placeholder="Username"
-          name="username"
+          ref="email"
+          v-model="loginForm.email"
+          placeholder="Email"
+          name="email"
           type="text"
           tabindex="1"
           autocomplete="on"
@@ -49,11 +49,11 @@
 
       <div style="position:relative">
         <div class="tips">
-          <span>Username : admin</span>
+          <span>Email : admin@exampl.com</span>
           <span>Password : any</span>
         </div>
         <div class="tips">
-          <span style="margin-right:18px;">Username : editor</span>
+          <span style="margin-right:18px;">Email : editor</span>
           <span>Password : any</span>
         </div>
 
@@ -74,7 +74,7 @@
 </template>
 
 <script>
-import { validUsername } from '@/utils/validate'
+import { validEmail } from '@/utils/validate'
 import SocialSign from './components/SocialSignin'
 
 export default {
@@ -82,7 +82,7 @@ export default {
   components: { SocialSign },
   data() {
     const validateUsername = (rule, value, callback) => {
-      if (!validUsername(value)) {
+      if (!validEmail(value)) {
         callback(new Error('Please enter the correct user name'))
       } else {
         callback()
@@ -97,18 +97,18 @@ export default {
     }
     return {
       loginForm: {
-        username: 'admin',
+        email: 'admin@example.com',
         password: 'password'
       },
       loginRules: {
-        username: [{ required: true, trigger: 'blur', validator: validateUsername }],
+        email: [{ required: true, trigger: 'blur', validator: validateUsername }],
         password: [{ required: true, trigger: 'blur', validator: validatePassword }]
       },
       passwordType: '',
       capsTooltip: false,
       loading: false,
       showDialog: false,
-      redirect: undefined,
+      redirect: '/',
       otherQuery: {}
     }
   },
@@ -128,8 +128,8 @@ export default {
     // window.addEventListener('storage', this.afterQRScan)
   },
   mounted() {
-    if (this.loginForm.username === '') {
-      this.$refs.username.focus()
+    if (this.loginForm.login === '') {
+      this.$refs.login.focus()
     } else if (this.loginForm.password === '') {
       this.$refs.password.focus()
     }
