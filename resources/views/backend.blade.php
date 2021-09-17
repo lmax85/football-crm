@@ -13,6 +13,8 @@
 </head>
 <body>
 <div id="app"></div>
-<script src="{{ mix('/build/js/backend.js') }}"></script>
+<script src="/js/manifest.js"></script>
+<script src="/js/vendor.js"></script>
+<script src="/js/backend.js"></script>
 </body>
 </html>
