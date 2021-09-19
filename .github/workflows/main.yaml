@@ -11,23 +11,23 @@ jobs:
       - name: Copy env file
         run: echo ${{secrets.ENV_PROD}} >> .env
 
-      - name: Install dependencies
-        uses: php-actions/composer@v6
-        with:
-          dev: no
-          args: --profile --ignore-platform-reqs
+      # - name: Install dependencies
+      #   uses: php-actions/composer@v6
+      #   with:
+      #     dev: no
+      #     args: --profile --ignore-platform-reqs
 
-      - name: Use Node.js 16
-        uses: actions/setup-node@v2-beta
-        with:
-          node-version: '16'
-          cache: 'npm'
-          cache-dependency-path: subdir/package-lock.json
+      # - name: Use Node.js 16
+      #   uses: actions/setup-node@v2-beta
+      #   with:
+      #     node-version: '16'
+      #     cache: 'npm'
+      #     cache-dependency-path: subdir/package-lock.json
 
-      - name: 🔨 Build Project
-        run: |
-          npm install
-          npm run production
+      # - name: 🔨 Build Project
+      #   run: |
+      #     npm install
+      #     npm run production
 
       - name: 📂 Sync files
         uses: SamKirkland/FTP-Deploy-Action@3.1.1
@@ -35,3 +35,4 @@ jobs:
           ftp-server: ${{secrets.FTP_SERVER}}
           ftp-username: ${{ secrets.FTP_USERNAME }}
           ftp-password: ${{ secrets.FTP_PASSWORD }}
+          git-ftp-args: --insecure
