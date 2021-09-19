@@ -30,11 +30,9 @@ jobs:
           npm run production
 
       - name: 📂 Sync files
-        uses: SamKirkland/FTP-Deploy-Action@4.1.0
+        uses: SamKirkland/FTP-Deploy-Action@3.1.1
         with:
           server: ${{secrets.FTP_SERVER}}
           port: ${{secrets.FTP_PORT}}
-          server-dir: ${{secrets.FTP_SERVER_DIR}}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          exclude: '[**/.git*, **/.git*/**, **/node_modules/**, **/storage/**]'
