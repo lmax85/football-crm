@@ -8,21 +8,26 @@ jobs:
       - name: 🚚 Get latest code
         uses: actions/checkout@v2
 
+      - name: Copy env file
+        run: echo ${{secrets.ENV_PROD}} >> .env
+
       - name: Install dependencies
         uses: php-actions/composer@v6
         with:
           dev: no
           args: --profile --ignore-platform-reqs
 
-      - name: Use Node.js 12
+      - name: Use Node.js 16
         uses: actions/setup-node@v2-beta
         with:
-          node-version: '12'
+          node-version: '16'
+          cache: 'npm'
+          cache-dependency-path: subdir/package-lock.json
 
       - name: 🔨 Build Project
         run: |
           npm install
-          npm run build
+          npm run production
 
       - name: 📂 Sync files
         uses: SamKirkland/FTP-Deploy-Action@4.1.0
