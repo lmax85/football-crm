@@ -5,33 +5,32 @@ jobs:
     name: 🎉 Deploy
     runs-on: ubuntu-latest
     steps:
-      # - name: 🚚 Get latest code
-      #   uses: actions/checkout@v2
+      - name: 🚚 Get latest code
+        uses: actions/checkout@v2
 
       - name: Copy env file
-        # run: echo ${{secrets.ENV_PROD}} >> .env
         run: 'echo "$ENV" > .env'
         shell: bash
         env:
           ENV: ${{secrets.ENV_PROD}}
 
-      # - name: Install dependencies
-      #   uses: php-actions/composer@v6
-      #   with:
-      #     dev: no
-      #     args: --profile --ignore-platform-reqs
+      - name: Install dependencies
+        uses: php-actions/composer@v6
+        with:
+          dev: no
+          args: --profile --ignore-platform-reqs
 
-      # - name: Use Node.js 16
-      #   uses: actions/setup-node@v2-beta
-      #   with:
-      #     node-version: '16'
-      #     cache: 'npm'
-      #     cache-dependency-path: subdir/package-lock.json
+      - name: Use Node.js 16
+        uses: actions/setup-node@v2-beta
+        with:
+          node-version: '16'
+          cache: 'npm'
+          cache-dependency-path: subdir/package-lock.json
 
-      # - name: 🔨 Build Project
-      #   run: |
-      #     npm install
-      #     npm run production
+      - name: 🔨 Build Project
+        run: |
+          npm install
+          npm run production
 
       - name: 📂 Sync files
         uses: SamKirkland/FTP-Deploy-Action@3.1.1
