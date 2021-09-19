@@ -11,7 +11,8 @@ jobs:
       - name: Install dependencies
         uses: php-actions/composer@v6
         with:
-          command: echo 'run composer command...'
+          dev: no
+          args: --profile --ignore-platform-reqs
 
       - name: Use Node.js 12
         uses: actions/setup-node@v2-beta
