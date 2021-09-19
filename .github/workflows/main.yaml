@@ -5,11 +5,15 @@ jobs:
     name: 🎉 Deploy
     runs-on: ubuntu-latest
     steps:
-      - name: 🚚 Get latest code
-        uses: actions/checkout@v2
+      # - name: 🚚 Get latest code
+      #   uses: actions/checkout@v2
 
       - name: Copy env file
-        run: echo ${{secrets.ENV_PROD}} >> .env
+        # run: echo ${{secrets.ENV_PROD}} >> .env
+        run: 'echo "$ENV" > .env'
+        shell: bash
+        env:
+          ENV: ${{secrets.ENV_PROD}}
 
       # - name: Install dependencies
       #   uses: php-actions/composer@v6
