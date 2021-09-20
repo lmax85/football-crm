@@ -13,11 +13,10 @@ jobs:
       - name: 🚚 Get latest code
         uses: actions/checkout@v2
 
-      - name: Copy env file
-        run: 'echo "$ENV" > .env'
-        shell: bash
-        env:
-          ENV: ${{secrets.ENV_PROD}}
+      - name: Copy hosting|project files
+        run: /
+          echo ${{secrets.ENV_PROD}} >> .env
+          echo ${{secrets.HTACCESS}} >> .htaccess
 
       - name: Install dependencies
         uses: php-actions/composer@v6
@@ -26,19 +25,15 @@ jobs:
           args: --profile --ignore-platform-reqs
 
       - name: Use Node.js 16
-        uses: actions/setup-node@v2-beta
+        uses: actions/setup-node@v2
         with:
           node-version: '16'
           cache: 'npm'
-          cache-dependency-path: subdir/package-lock.json
 
       - name: 🔨 Build Project
         run: |
           npm install
           npm run production
-
-      - name: List output files
-        run: ls -lah && ls -lah public
 
       - name: 📂 Sync files
         uses: SamKirkland/FTP-Deploy-Action@3.1.1
@@ -46,4 +41,3 @@ jobs:
           ftp-server: ${{secrets.FTP_SERVER}}
           ftp-username: ${{ secrets.FTP_USERNAME }}
           ftp-password: ${{ secrets.FTP_PASSWORD }}
-          git-ftp-args: --insecure
