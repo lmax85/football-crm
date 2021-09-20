@@ -1,7 +1,6 @@
 import request from '@/utils/request'
 
 export function login(data) {
-  console.log("🚀 ~ file: user.js ~ line 4 ~ login ~ login", login)
   return request({
     url: '/api/auth/login',
     method: 'post',

@@ -30,7 +30,7 @@ mix.webpackConfig({
       '@': path.resolve(__dirname, 'resources/js/backend'),
       '^': path.resolve(__dirname, 'resources/js/frontend'),
       'share': path.resolve(__dirname, 'resources/share'),
-      'lang': path.resolve(__dirname, 'resources/share/lang'),
+      // 'lang': path.resolve(__dirname, 'resources/share/lang'),
     }
   },
   module: {

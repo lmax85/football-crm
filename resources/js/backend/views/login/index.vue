@@ -3,7 +3,10 @@
     <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" autocomplete="on" label-position="left">
 
       <div class="title-container">
-        <h3 class="title">Login Form?</h3>
+        <h3 class="title">
+          {{ $t('login.title') }}
+        </h3>
+        <lang-select class="set-language" />
       </div>
 
       <el-form-item prop="email">
@@ -13,7 +16,7 @@
         <el-input
           ref="email"
           v-model="loginForm.email"
-          placeholder="Email"
+          :placeholder="$t('login.username')"
           name="email"
           type="text"
           tabindex="1"
@@ -31,7 +34,7 @@
             ref="password"
             v-model="loginForm.password"
             :type="passwordType"
-            placeholder="Password"
+            :placeholder="$t('login.password')"
             name="password"
             tabindex="2"
             autocomplete="on"
@@ -45,26 +48,30 @@
         </el-form-item>
       </el-tooltip>
 
-      <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">Login</el-button>
+      <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">
+        {{ $t('login.logIn') }}
+      </el-button>
 
       <div style="position:relative">
         <div class="tips">
-          <span>Email : admin@exampl.com</span>
-          <span>Password : any</span>
+          <span>{{ $t('login.username') }} : admin@example.com</span>
+          <span>{{ $t('login.password') }} : {{ $t('login.any') }}</span>
         </div>
         <div class="tips">
-          <span style="margin-right:18px;">Email : editor</span>
-          <span>Password : any</span>
+          <span style="margin-right:18px;">
+            {{ $t('login.email') }} : editor
+          </span>
+          <span>{{ $t('login.password') }} : {{ $t('login.any') }}</span>
         </div>
 
         <el-button class="thirdparty-button" type="primary" @click="showDialog=true">
-          Or connect with
+          {{ $t('login.thirdparty') }}
         </el-button>
       </div>
     </el-form>
 
-    <el-dialog title="Or connect with" :visible.sync="showDialog">
-      Can not be simulated on local, so please combine you own business simulation! ! !
+    <el-dialog :title="$t('login.thirdparty')" :visible.sync="showDialog">
+      {{ $t('login.thirdpartyTips') }}
       <br>
       <br>
       <br>
@@ -75,11 +82,12 @@
 
 <script>
 import { validEmail } from '@/utils/validate'
+import LangSelect from '@/components/LangSelect'
 import SocialSign from './components/SocialSignin'
 
 export default {
   name: 'Login',
-  components: { SocialSign },
+  components: { LangSelect, SocialSign },
   data() {
     const validateUsername = (rule, value, callback) => {
       if (!validEmail(value)) {
@@ -155,7 +163,6 @@ export default {
     handleLogin() {
       this.$refs.loginForm.validate(valid => {
         if (valid) {
-          console.log("🚀 ~ file: index.vue ~ line 158 ~ handleLogin ~ valid", valid)
           this.loading = true
           this.$store.dispatch('user/login', this.loginForm)
             .then(() => {
@@ -297,6 +304,15 @@ $light_gray:#eee;
       margin: 0px auto 40px auto;
       text-align: center;
       font-weight: bold;
+    }
+
+    .set-language {
+      color: #fff;
+      position: absolute;
+      top: 3px;
+      font-size: 18px;
+      right: 0px;
+      cursor: pointer;
     }
   }
 
