@@ -81,3 +81,10 @@ mix.js('resources/js/backend/main.js', 'public/js/backend')
     ],
   })
   .version();
+
+if (process.env.MIX_BROWSER_SYNC_ENABLE === 'true') {
+  mix.browserSync({
+    proxy: process.env.MIX_BROWSER_SYNC_PROXY_URL,
+    open: false
+  });
+}
