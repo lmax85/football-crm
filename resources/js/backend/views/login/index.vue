@@ -59,7 +59,7 @@
         </div>
         <div class="tips">
           <span style="margin-right:18px;">
-            {{ $t('login.email') }} : editor
+            {{ $t('login.username') }} : editor
           </span>
           <span>{{ $t('login.password') }} : {{ $t('login.any') }}</span>
         </div>
